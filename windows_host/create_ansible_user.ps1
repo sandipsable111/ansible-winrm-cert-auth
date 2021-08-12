@@ -10,7 +10,7 @@ $password = [System.Web.Security.Membership]::GeneratePassword($len, $symbols)
 
 # Create Ansible user
 $ansibleRunnerUsername = 'ansiblerunner'
-$ansibleRunnerPassword = (ConvertTo-SecureString -String $password -AsPlainText -Force)
+$ansibleRunnerPassword = (ConvertTo-SecureString -String 'userPassword' -AsPlainText -Force)
 if (-not (Get-LocalUser -Name $ansibleRunnerUsername -ErrorAction Ignore)) {
     $newUserParams = @{
         Name                 = $ansibleRunnerUsername
@@ -22,7 +22,7 @@ if (-not (Get-LocalUser -Name $ansibleRunnerUsername -ErrorAction Ignore)) {
 }
 
 # Add the local user to the administrator's group. 
-Get-LocalUser -Name $ansibleRunnerUsername | Add-LocalGroupMember -Group 'Administrators'
+#Get-LocalUser -Name $ansibleRunnerUsername | Add-LocalGroupMember -Group 'Administrators'
 
 # Allow WinRM with User Account Control
 $newItemParams = @{
